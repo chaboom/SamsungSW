@@ -40,10 +40,10 @@ void fill(int color, int index, int size) {
 			map[k] = color;
 		}
 	}
-	for (int i = 1; i <= size; i++) {
+	/*for (int i = 1; i <= size; i++) {
 		cout << map[i] << " ";
 	}
-	cout << endl;
+	cout << endl;*/
 }
 
 int main(int argc, char** argv)
