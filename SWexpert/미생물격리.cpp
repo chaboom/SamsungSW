@@ -9,7 +9,7 @@ int map[101][101];
 
 bool checkPosition(int x, int y) {
 	if (x == 0 || x == N - 1 || y == 0 || y == N - 1) return false;
-	else true;
+	else return true;
 }
 
 int changedir(int dir) {
