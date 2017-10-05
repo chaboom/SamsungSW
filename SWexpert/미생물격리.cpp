@@ -1,4 +1,3 @@
-#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 using namespace std;
 
@@ -19,8 +18,7 @@ int changedir(int dir) {
 	else if (dir == 4) return 3;
 	else return 0;
 }
-
-typedef struct __Mimic {
+class __Mimic {
 public:
 	int direction, x, y, capacity;
 	__Mimic() {}
@@ -40,12 +38,10 @@ public:
 		y += dy[direction];
 		map[x][y]++;
 	}
-} Mimic;
+};
 
 int main() {
 	int T;
-	freopen("sample_input.txt", "r", stdin);
-	setbuf(stdout, NULL);
 	cin >> T;
 
 	for (int tc = 1; tc <= T; tc++) {
