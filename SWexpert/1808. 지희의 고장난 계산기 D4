@@ -1,0 +1,60 @@
+#include <iostream>
+using namespace std;
+
+bool calc[10];
+int comb[1000001], ans;
+
+void init(int N) {
+	for (int i = 0; i <= N; i++) {
+		comb[i] = 0;
+	}
+}
+void make_comb(int N, int length, int goal) {
+	for (int i = 0; i < 10; i++) {
+		if (length == 1 && i == 0) continue;
+		if (calc[i]){
+			int next = (N * 10) + i;
+			if (next <= goal) {
+				if(goal % next == 0) comb[next] = length;
+				make_comb(next, length + 1, goal);
+			}
+		}
+	}
+}
+
+void go(int goal, int count) {
+	if (goal == 1) {
+		if (ans > count) ans = count;
+		return;
+	}	
+	for (int i = goal; i > 1; i--) {
+		if (comb[i] > 0 && (goal % i == 0)) {
+			int ngoal = goal / i;
+			go(ngoal, count + comb[i] + 1);
+		}
+	}
+}
+
+int main() {
+	int T;
+	cin >> T;
+	for (int tc = 1; tc <= T; tc++) {
+		for (int i = 0; i < 10; i++) cin >> calc[i];
+		int goal;
+		cin >> goal;
+		
+		ans = 100;
+		init(goal);
+		make_comb(0, 1, goal);
+		if (comb[goal] > 0) {
+			ans = comb[goal] + 1;
+			cout << "#" << tc << " " << ans << endl;
+			continue;
+		}
+		go(goal, 0);
+
+		if (ans == 100) ans = -1;
+		cout << "#" << tc << " " << ans << endl;
+	}	
+	return 0;
+}
