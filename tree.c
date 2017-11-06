@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// 트리노드선언
 typedef struct Tree_node {
 	struct Tree_node* parent;
 	struct Tree_node* left;
@@ -8,13 +9,14 @@ typedef struct Tree_node {
 	int value;
 }tree_node;
 
-
+// 트리선언
 typedef struct Tree {
 	tree_node* root;
 	int size;
 	tree_node* ptr;
 }tree;
 
+// 노드초기화
 void treenode_init(tree_node* tn, int val) {
 	tn->left = NULL;
 	tn->right = NULL;
@@ -22,6 +24,7 @@ void treenode_init(tree_node* tn, int val) {
 	tn->value = val;
 }
 
+// 트리초기화
 void tree_init(tree *tr)
 {
 	tr->root = NULL;
@@ -29,7 +32,7 @@ void tree_init(tree *tr)
 	tr->ptr = NULL;
 }
 
-
+// 트리탐색
 void tree_search(tree* tr, tree_node* cur, int val) {
 	if (cur->value == val) {
 		tr->ptr = cur;
@@ -41,6 +44,8 @@ void tree_search(tree* tr, tree_node* cur, int val) {
 		tree_search(tr, cur->right, val);
 	}
 }
+
+//  트리terminal탐색
 void tree_search_terminal(tree* tr, tree_node *cur) {
 	tr->ptr = cur;
 	if (cur->left != NULL) {
@@ -50,35 +55,6 @@ void tree_search_terminal(tree* tr, tree_node *cur) {
 		tree_search_terminal(tr, cur->right);
 	}
 }
-void tree_insert(tree *tr, int parent_value, int value) {
-	tree_node *newNode = (tree_node*)malloc(sizeof(tree_node));
-	treenode_init(newNode, value);
-	if (tr->root == NULL) {
-		tr->root = newNode;
-		return;
-	}
-	tree_node* parent = NULL;
-	tr->ptr = NULL;
-	tree_search(tr, tr->root, parent_value);
-	parent = tr->ptr;
-	if (parent == NULL) {
-		//parent not exist
-	}
-	else if (parent->left == NULL)
-	{
-		parent->left = newNode;
-		newNode->parent = parent;
-	}
-	else if (parent->right == NULL)
-	{
-		parent->right = newNode;
-		newNode->parent = parent;
-	}
-	else {
-		// parent node has left & right child;
-	}
-}
-
 void tree_preorder(struct Tree_node* cur) {
 	printf("%d ", cur->value);
 	if (cur->left != NULL) {
@@ -108,6 +84,8 @@ void tree_postorder(tree_node* cur) {
 	}
 	printf("%d ", cur->value);
 }
+
+// 노드삽입
 void tree_insertion(tree *tr, int parent_value, int val) {
 	tree_node *newNode = (tree_node*)malloc(sizeof(tree_node));
 	if (tr->root == NULL) {
@@ -135,6 +113,7 @@ void tree_insertion(tree *tr, int parent_value, int val) {
 	}
 }
 
+// 
 void tree_deletion(tree *tr, int val) {
 	tree_node *remove_node = NULL;
 	tree_search(tr, tr->root, val);
